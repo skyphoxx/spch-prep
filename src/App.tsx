@@ -47,7 +47,7 @@ export default function App() {
 
   return (
     <div className="app" style={{ padding: 24, textAlign: "center" }}>
-      <h1>Speechify Prep Demo</h1>
+      <h1>Daveable Typescript + React Prep Demo</h1>
 
       {/* --- Counter A --- */}
       <h2>A: {countA}</h2>
