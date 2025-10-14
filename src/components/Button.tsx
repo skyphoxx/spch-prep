@@ -1,3 +1,4 @@
+// src/components/Button.tsx
 import React from "react";
 
 export interface ButtonProps {
@@ -7,5 +8,9 @@ export interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({ label, onClick, disabled }) => {
-  return <button onClick={onClick} disabled={disabled}>{label}</button>;
+  return (
+    <button onClick={onClick} disabled={disabled}>
+      {label}
+    </button>
+  );
 };

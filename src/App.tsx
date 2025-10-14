@@ -1,29 +1,27 @@
 import { useState } from "react";
-import { Button } from "./components/Button"; // 👈 import your new component
+import { Button } from "./components/Button";
 import "./App.css";
 
 export default function App() {
-  const [count, setCount] = useState(0);
+  // ✅ hooks at top-level, not in conditionals/loops
+  const [countA, setA] = useState(0);
+  const [countB, setB] = useState(0);
 
   return (
     <div className="app" style={{ padding: 24, textAlign: "center" }}>
-      <h1>Speechify Prep Demo</h1>
-      <p>Count: {count}</p>
+      <h1>Two Counters</h1>
 
-      <Button
-        label="Increment"
-        onClick={() => setCount((prev) => prev + 1)}
-      />
+      {/* --- Counter A --- */}
+      <h2>A: {countA}</h2>
+      <Button label="A +1" onClick={() => setA((n) => n + 1)} />
+      <Button label="Reset A" onClick={() => setA(0)} disabled={countA === 0} />
 
-      <Button
-        label="Reset"
-        onClick={() => setCount(0)}
-        disabled={count === 0}
-      />
+      <hr style={{ margin: "24px 0" }} />
 
-      <p style={{ marginTop: 16, color: "#666" }}>
-        Edit <code>src/App.tsx</code> and save to test hot reload 🔥
-      </p>
+      {/* --- Counter B --- */}
+      <h2>B: {countB}</h2>
+      <Button label="B +1" onClick={() => setB((n) => n + 1)} />
+      <Button label="Reset B" onClick={() => setB(0)} disabled={countB === 0} />
     </div>
   );
 }
