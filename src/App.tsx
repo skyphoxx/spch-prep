@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "./components/Button";
+import { Card } from "./components/Card";
 import "./App.css";
 
 type Post = {
@@ -50,9 +51,11 @@ export default function App() {
       <h1>Dave's' Typescript + React Prep Demo</h1>
 
       {/* --- Counter A --- */}
+      <Card title="Counter A" variant="elevated">
       <h2>A: {countA}</h2>
       <Button label="A +1" onClick={() => setA((n) => n + 1)} />
       <Button label="Reset A" onClick={() => setA(0)} disabled={countA === 0} />
+      </Card>
 
       <hr style={{ margin: "24px 0" }} />
 
@@ -65,7 +68,7 @@ export default function App() {
 
       {/* --- Controlled input --- */}
       <div>
-        <TextField
+        <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Type your name"
