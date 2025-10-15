@@ -65,7 +65,7 @@ export default function App() {
 
       {/* --- Controlled input --- */}
       <div>
-        <input
+        <TextField
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Type your name"
