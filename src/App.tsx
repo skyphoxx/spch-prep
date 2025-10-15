@@ -25,6 +25,8 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reloads, setReloads] = useState(0); // force re-fetch when changed
+  const [postId, setPostId] = useState(1);
+  const { data: post, loading, error } = usePost(postId);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -80,6 +82,16 @@ export default function App() {
             placeholder="Type your name here"
             />
 
+        </Card>
+        <Card title="Select Post ID">
+
+          <input
+            type="number"
+            min={1}
+            value={postID}
+            onChange={(e) => setPostID(Number(e.target.value))}
+            style={{ padding: 8, borderRadius: 6, border: "1px solid #ccc"}}
+            />
         </Card>
         <p style={{ marginTop: 8 }}>Hello, {name || "friend"}!</p>
       </div>
