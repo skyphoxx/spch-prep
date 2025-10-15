@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "./components/Button";
 import { Card } from "./components/Card";
+import {TextField} from "./components/TextField"
 import "./App.css";
 
 type Post = {
@@ -68,12 +69,16 @@ export default function App() {
 
       {/* --- Controlled input --- */}
       <div>
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Type your name"
-          style={{ padding: 8, borderRadius: 6, border: "1px solid #ccc" }}
-        />
+        <Card title="Your Name">
+
+          <TextField
+            label="Name"
+            value={name}
+            onChange={setName}
+            placeholder="Type your name here"
+            />
+
+        </Card>
         <p style={{ marginTop: 8 }}>Hello, {name || "friend"}!</p>
       </div>
 
