@@ -4,6 +4,7 @@ import { Loader } from "./components/Loader";
 import { ErrorMessage } from "./components/ErrorMessage";
 import { Card } from "./components/Card";
 import {TextField} from "./components/TextField"
+import { usePost } from "./hooks/usePost";
 import "./App.css";
 
 type Post = {
@@ -20,37 +21,9 @@ export default function App() {
   // controlled input
   const [name, setName] = useState("");
 
-  // fetch demo
-  const [post, setPost] = useState<Post | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [reloads, setReloads] = useState(0); // force re-fetch when changed
-  const [postId, setPostId] = useState(1);
-  const { data: post, loading, error } = usePost(postId);
-
-  useEffect(() => {
-    const ctrl = new AbortController();
-    const run = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch(
-          "https://jsonplaceholder.typicode.com/posts/1",
-          { signal: ctrl.signal }
-        );
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data: Post = await res.json();
-        setPost(data);
-      } catch (err: any) {
-        if (err.name !== "AbortError") setError(err.message ?? "Error");
-      } finally {
-        setLoading(false);
-      }
-    };
-    run();
-    return () => ctrl.abort();
-  }, [reloads]); // re-run when "Reload" pressed
-
+  // fetch
+const [postId, setPostId] = useState(1);
+const { data: post, loading, error } = usePost(postId);
   return (
     <div className="app" style={{ padding: 24, textAlign: "center" }}>
       <h1>Dave's' Typescript + React Prep Demo</h1>
@@ -84,17 +57,16 @@ export default function App() {
 
         </Card>
         <Card title="Select Post ID">
+  <input
+    type="number"
+    min={1}
+    value={postId}
+    onChange={(e) => setPostId(Number(e.target.value))}
+    style={{ padding: 8, borderRadius: 6, border: "1px solid #ccc", }}/>
+</Card>
 
-          <input
-            type="number"
-            min={1}
-            value={postID}
-            onChange={(e) => setPostID(Number(e.target.value))}
-            style={{ padding: 8, borderRadius: 6, border: "1px solid #ccc"}}
-            />
-        </Card>
         <p style={{ marginTop: 8 }}>Hello, {name || "friend"}!</p>
-      </div>
+    </div>
 
       <hr style={{ margin: "24px 0" }} />
 
@@ -112,5 +84,5 @@ export default function App() {
     <Button label="Reload" onClick={() => window.location.reload()} />
     {/* simple reload; or evolve usePost to accept a refetch trigger later */}
   </div></Card>
-  );
-}
+  </div>
+  );}
