@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "./components/Button";
 import { Loader } from "./components/Loader";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -6,12 +6,6 @@ import { Card } from "./components/Card";
 import {TextField} from "./components/TextField"
 import { usePost } from "./hooks/usePost";
 import "./App.css";
-
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-};
 
 export default function App() {
   // counters
@@ -26,7 +20,7 @@ const [postId, setPostId] = useState(1);
 const { data: post, loading, error } = usePost(postId);
   return (
     <div className="app" style={{ padding: 24, textAlign: "center" }}>
-      <h1>Dave's' Typescript + React Prep Demo</h1>
+      <h1>Dave's Typescript React Warmups</h1>
 
       {/* --- Counter A --- */}
       <Card title="Counter A" variant="elevated">
@@ -73,7 +67,8 @@ const { data: post, loading, error } = usePost(postId);
       {/* --- Fetch Test --- */}
       <Card title="Fetch a Post">
   {loading && <Loader />}
-  {error && <ErrorMessage message={error} />}
+{error ? <ErrorMessage message={error} /> : null}
+
   {!loading && !error && post && (
     <>
       <h3 style={{ marginBottom: 8 }}>{post.title}</h3>
@@ -81,7 +76,10 @@ const { data: post, loading, error } = usePost(postId);
     </>
   )}
   <div style={{ marginTop: 12 }}>
-    <Button label="Reload" onClick={() => window.location.reload()} />
+    <Button
+  label="Next Post"
+  onClick={() => setPostId((n) => (n >= 3 ? 1 : n + 1))}
+ />
     {/* simple reload; or evolve usePost to accept a refetch trigger later */}
   </div></Card>
   </div>
