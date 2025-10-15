@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "./components/Button";
+import { Loader } from "./components/Loader";
+import { ErrorMessage } from "./components/ErrorMessage";
 import { Card } from "./components/Card";
 import {TextField} from "./components/TextField"
 import "./App.css";
@@ -67,7 +69,7 @@ export default function App() {
 
       <hr style={{ margin: "24px 0" }} />
 
-      {/* --- Controlled input --- */}
+      {/* --- Controlled input test --- */}
       <div>
         <Card title="Your Name">
 
@@ -84,19 +86,19 @@ export default function App() {
 
       <hr style={{ margin: "24px 0" }} />
 
-      {/* --- Fetch demo --- */}
-      <h2>Fetch a Post</h2>
-      {loading && <p>Loading…</p>}
-      {error && <p style={{ color: "crimson" }}>Error: {error}</p>}
-      {!loading && !error && post && (
-        <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "left" }}>
-          <h3 style={{ marginBottom: 8 }}>{post.title}</h3>
-          <p style={{ color: "#555" }}>{post.body}</p>
-        </div>
-      )}
-      <div style={{ marginTop: 12 }}>
-        <Button label="Reload" onClick={() => setReloads((n) => n + 1)} />
-      </div>
-    </div>
+      {/* --- Fetch Test --- */}
+      <Card title="Fetch a Post">
+  {loading && <Loader />}
+  {error && <ErrorMessage message={error} />}
+  {!loading && !error && post && (
+    <>
+      <h3 style={{ marginBottom: 8 }}>{post.title}</h3>
+      <p style={{ color: "#555" }}>{post.body}</p>
+    </>
+  )}
+  <div style={{ marginTop: 12 }}>
+    <Button label="Reload" onClick={() => window.location.reload()} />
+    {/* simple reload; or evolve usePost to accept a refetch trigger later */}
+  </div></Card>
   );
 }
